@@ -1,5 +1,21 @@
 #!/bin/bash
 
-curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js
-curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+for file in jquery{.js,.min.js}
+do
+    curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/$file
+done
+
+curl -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
+
+for file in jquery.tmpl{.js,.min.js}
+do
+    curl -OL https://github.com/jquery/jquery-tmpl/blob/master/$file
+done
+
+mkdir -p 960
+for file in 960 reset text
+do
+    ( cd 960 && curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/uncompressed/$file.css )
+    ( cd 960 && curl -L https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file.css > $file.min.css )
+done
 
