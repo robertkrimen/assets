@@ -1,0 +1,5 @@
+#!/bin/bash
+
+curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js
+curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+
