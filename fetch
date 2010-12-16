@@ -1,21 +1,66 @@
 #!/bin/bash
 
-for file in jquery{.js,.min.js}
-do
-    curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/$file
-done
+function _warn {
+    echo "$*" 1>/dev/stderr
+}
 
-curl -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
+function _die {
+    _warn "$*"
+    exit 64
+}
 
-for file in jquery.tmpl{.js,.min.js}
-do
-    curl -OL https://github.com/jquery/jquery-tmpl/raw/master/$file
-done
+function _have {
+    type -P "" &>/dev/null
+}
 
-mkdir -p 960
-for file in 960 reset text
+function _pushmd {
+	if [[ -z $1 ]] 
+	then
+		_warn "_pushmd: Missing directory name"
+        return 64
+	fi
+
+	mkdir -p $1 || return 64
+	pushd $1 || return 64
+}
+
+set -e
+
+_pushmd "source"
+
+#for extension in {,.min}.js
+#do
+#    curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery$extension
+#    curl -OL https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
+#    curl -OL https://github.com/jquery/jquery-tmpl/raw/master/jquery.tmpl$extension
+#done
+
+#curl -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
+
+#_pushmd "960"
+#for file in {960,reset,text}.css
+#do
+#    _pushmd "uncompressed"
+#    curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/uncompressed/$file
+#    popd || exit 64
+#    curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file
+#done
+#popd
+
+_pushmd "jquery-ui"
+for theme in base ui-lightness
 do
-    ( cd 960 && curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/uncompressed/$file.css )
-    ( cd 960 && curl -L https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file.css > $file.min.css )
+    _pushmd $theme
+    curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
+
+    _pushmd "jquery-ui"
+    for url in `<../jquery-ui.css perl -ne 'm/url\(([^)]+)\)/ and print "$1\n"'`
+    do
+        curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
+    done
+    popd
+
+    perl -pi -e 's/url\(images/url\(jquery-ui/g' jquery-ui.css
+    popd
 done
 
