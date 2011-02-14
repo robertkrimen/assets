@@ -1,1 +1,1 @@
-../source/jquery-ui.min.js
+../source/jquery-ui.js

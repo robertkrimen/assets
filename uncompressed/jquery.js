@@ -1,1 +1,1 @@
-../source/jquery.min.js
+../source/jquery.js

@@ -1,1 +1,1 @@
-../source/jquery.tmpl.min.js
+../source/jquery.tmpl.js

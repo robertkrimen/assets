@@ -91,7 +91,7 @@ $stash = dir 'uncompressed';
 $stash->rmtree;
 for $asset ( values %asset ) {
     say '# ', $asset->name, ' ', $asset->try_uncompressed;
-    my $target = file $asset->try_compressed;
+    my $target = file $asset->try_uncompressed;
     my $file = $stash->file( $asset->name );
     my ( $from, $to ) = App::lntree->resolve( $target->parent, $file->parent, $target );
     $file->parent->mkpath;
