@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function _warn {
     echo "$*" 1>/dev/stderr
 }
@@ -24,43 +26,51 @@ function _pushmd {
 	pushd $1 || return 64
 }
 
-set -e
+function _fetch {
+    curl -OL $*
+}
 
 _pushmd "source"
 
-#for extension in {,.min}.js
-#do
-#    curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery$extension
-#    curl -OL https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
-#    curl -OL https://github.com/jquery/jquery-tmpl/raw/master/jquery.tmpl$extension
-#done
+for extension in {,.min}.js
+do
+    curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery$extension
+    curl -OL https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
+    curl -OL https://github.com/jquery/jquery-tmpl/raw/master/jquery.tmpl$extension
+done
 
-#curl -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
+curl -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
 
-#_pushmd "960"
-#for file in {960,reset,text}.css
-#do
-#    _pushmd "uncompressed"
-#    curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/uncompressed/$file
-#    popd || exit 64
-#    curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file
-#done
-#popd
+_pushmd "960"
+    for file in {960,reset,text}.css
+    do
+        _pushmd "uncompressed"
+        curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/uncompressed/$file
+        popd || exit 64
+        curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file
+    done
+popd
+
+_pushmd "qunit"
+    _fetch "https://github.com/jquery/qunit/raw/master/qunit/qunit.css"
+    _fetch "https://github.com/jquery/qunit/raw/master/qunit/qunit.js"
+popd
 
 _pushmd "jquery-ui"
-for theme in base ui-lightness
-do
-    _pushmd $theme
-    curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
-
-    _pushmd "jquery-ui"
-    for url in `<../jquery-ui.css perl -ne 'm/url\(([^)]+)\)/ and print "$1\n"'`
+    for theme in base ui-lightness
     do
-        curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
-    done
-    popd
+        _pushmd $theme
+        curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
 
-    perl -pi -e 's/url\(images/url\(jquery-ui/g' jquery-ui.css
-    popd
-done
+        _pushmd "jquery-ui"
+        for url in `<../jquery-ui.css perl -ne 'm/url\(([^)]+)\)/ and print "$1\n"'`
+        do
+            curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
+        done
+        popd
+
+        perl -pi -e 's/url\(images/url\(jquery-ui/g' jquery-ui.css
+        popd
+    done
+popd
 

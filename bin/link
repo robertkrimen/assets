@@ -74,6 +74,8 @@ $asset = declare "prettify" => {
     uncompressed => "source/prettify/",
 };
 
+declare "qunit";
+
 my ( $stash );
 
 $stash = dir 'compressed';
@@ -101,6 +103,7 @@ for $asset ( values %asset ) {
 sub declare {
     my $name = shift;
     my $source = shift;
+    $source = "source/$name" unless defined $source;
 
     if ( ref $source eq 'HASH' ) {
     }
@@ -129,6 +132,12 @@ sub declare {
                 die "Unknown ($source) bind:$bind bound:($bound) unbound:($unbound)";
             }
             $source = \%source;
+        }
+        else {
+            $source = {
+                compressed => $source,
+                uncompressed => $source,
+            };
         }
     }
 
