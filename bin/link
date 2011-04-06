@@ -76,6 +76,8 @@ $asset = declare "prettify" => {
 
 declare "qunit";
 
+declare "css3buttons";
+
 my ( $stash );
 
 $stash = dir 'compressed';
