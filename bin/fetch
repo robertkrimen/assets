@@ -27,6 +27,7 @@ function _pushmd {
 }
 
 function _fetch {
+    echo "> Fetch $*"
     curl -OL $*
 }
 
@@ -34,20 +35,20 @@ _pushmd "source"
 
 for extension in {,.min}.js
 do
-    curl -OL https://ajax.googleapis.com/ajax/libs/jquery/1/jquery$extension
-    curl -OL https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
-    curl -OL https://github.com/jquery/jquery-tmpl/raw/master/jquery.tmpl$extension
+    _fetch https://ajax.googleapis.com/ajax/libs/jquery/1/jquery$extension
+    _fetch https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
+    _fetch https://github.com/jquery/jquery-tmpl/raw/master/jquery.tmpl$extension
 done
 
-curl -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
+_fetch -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
 
 _pushmd "960"
     for file in {960,reset,text}.css
     do
         _pushmd "uncompressed"
-        curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/uncompressed/$file
+        _fetch https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file
         popd || exit 64
-        curl -OL https://github.com/nathansmith/960-Grid-System/raw/master/code/css/$file
+        _fetch https://github.com/nathansmith/960-Grid-System/raw/master/code/css/min/$file
     done
 popd
 
@@ -60,12 +61,12 @@ _pushmd "jquery-ui"
     for theme in base ui-lightness
     do
         _pushmd $theme
-        curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
+        _fetch http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
 
         _pushmd "jquery-ui"
         for url in `<../jquery-ui.css perl -ne 'm/url\(([^)]+)\)/ and print "$1\n"'`
         do
-            curl -OL http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
+            _fetch http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
         done
         popd
 
