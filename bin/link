@@ -78,6 +78,8 @@ declare "qunit";
 
 declare "css3buttons";
 
+declare "zeroclipboard";
+
 my ( $stash );
 
 $stash = dir 'compressed';

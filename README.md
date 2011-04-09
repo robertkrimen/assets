@@ -48,6 +48,10 @@ assets is a collection of useful .css &amp; .js assets. Both uncompressed and co
 
 [https://github.com/michenriksen/css3buttons](https://github.com/michenriksen/css3buttons)
 
+### ZeroClipboard
+
+[https://code.google.com/p/zeroclipboard/](https://code.google.com/p/zeroclipboard/)
+
 # ...
 
 * Add modernizr.js
