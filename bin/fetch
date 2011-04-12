@@ -33,6 +33,14 @@ function _fetch {
 
 _pushmd "source"
 
+_pushmd "tipsy"
+    _fetch "https://github.com/jaz303/tipsy/raw/master/src/images/tipsy.gif"
+    _fetch "https://github.com/jaz303/tipsy/raw/master/src/javascripts/jquery.tipsy.js"
+    _fetch "https://github.com/jaz303/tipsy/raw/master/src/stylesheets/tipsy.css"
+    perl -pi -e "s{url\('../images/}{url\('}g" tipsy.css
+popd
+
+
 _pushmd "css3buttons"
     _fetch -L https://github.com/michenriksen/css3buttons/raw/master/stylesheets/css3buttons.css 
     perl -pi -e "s{url\('../images/css3buttons_backgrounds.png'\)}{url\(css3buttons-background.png\)}g" css3buttons.css

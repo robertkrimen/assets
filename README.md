@@ -52,6 +52,12 @@ assets is a collection of useful .css &amp; .js assets. Both uncompressed and co
 
 [https://code.google.com/p/zeroclipboard/](https://code.google.com/p/zeroclipboard/)
 
+### tipsy
+
+[http://onehackoranother.com/projects/jquery/tipsy/](http://onehackoranother.com/projects/jquery/tipsy/)
+
+[https://github.com/jaz303/tipsy](https://github.com/jaz303/tipsy)
+
 # ...
 
 * Add modernizr.js

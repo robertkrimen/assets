@@ -80,6 +80,8 @@ declare "css3buttons";
 
 declare "zeroclipboard";
 
+declare "tipsy";
+
 my ( $stash );
 
 $stash = dir 'compressed';
