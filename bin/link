@@ -82,6 +82,8 @@ declare "zeroclipboard";
 
 declare "tipsy";
 
+declare "underscore.js" => "source/underscore{-min}.js";
+
 my ( $stash );
 
 $stash = dir 'compressed';

@@ -48,7 +48,7 @@ assets is a collection of useful .css &amp; .js assets. Both uncompressed and co
 
 [https://github.com/michenriksen/css3buttons](https://github.com/michenriksen/css3buttons)
 
-### ZeroClipboard
+### Zero Clipboard
 
 [https://code.google.com/p/zeroclipboard/](https://code.google.com/p/zeroclipboard/)
 
@@ -57,6 +57,12 @@ assets is a collection of useful .css &amp; .js assets. Both uncompressed and co
 [http://onehackoranother.com/projects/jquery/tipsy/](http://onehackoranother.com/projects/jquery/tipsy/)
 
 [https://github.com/jaz303/tipsy](https://github.com/jaz303/tipsy)
+
+### underscore
+
+[http://documentcloud.github.com/underscore/](http://documentcloud.github.com/underscore/)
+
+[https://github.com/documentcloud/underscore](https://github.com/documentcloud/underscore)
 
 # ...
 
