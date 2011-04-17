@@ -84,6 +84,8 @@ declare "tipsy";
 
 declare "underscore.js" => "source/underscore{-min}.js";
 
+declare "yzzy";
+
 my ( $stash );
 
 $stash = dir 'compressed';
