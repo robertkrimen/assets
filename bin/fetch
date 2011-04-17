@@ -37,6 +37,7 @@ _pushmd "yzzy"
     _fetch "https://github.com/robertkrimen/yzzy-js/raw/master/yzzy.js"
     _fetch "https://github.com/robertkrimen/DOMite-js/raw/master/DOMite.js"
     _fetch "https://github.com/robertkrimen/nvc-js/raw/master/nvc.js"
+    _fetch "https://github.com/robertkrimen/stash-js/raw/master/stash.js"
 popd
 
 _fetch "https://github.com/documentcloud/underscore/raw/1.1.5/underscore.js"
