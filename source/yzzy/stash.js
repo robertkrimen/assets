@@ -8,6 +8,8 @@ if ( yzzy === null || yzzy === undefined ) {
     var $stash;
     yzzy.stash = $stash = {};
 
+    // TODO 'add' trigger on non-existing keyed value
+    
     _.extend( $stash.KeyValueStash = function( $cfg ){
         var self = this;
         if ( ! $cfg ) {
@@ -31,10 +33,12 @@ if ( yzzy === null || yzzy === undefined ) {
         'set': function( key, value ){
             var self = this;
             self._data[ key ] = value;
+            var overwrite = key in self._data;
             var index = _.sortedIndex( self._index, [ key, value ], self.cfg.sortWith );
             self._index.splice( index, 0, [ key, value ] );
-            var trigger = self._bind.set;
-            if ( trigger ) {
+            var setTrigger = self._bind.set;
+            var addTrigger = self._bind.add;
+            if ( setTrigger || addTrigger ) {
                 var event = { index: index };
                 if ( index - 1 > -1 ) {
                     event.previous = self._index[ index - 1 ][1];
@@ -44,7 +48,13 @@ if ( yzzy === null || yzzy === undefined ) {
                 }
                 event.key = key;
                 event.value = value;
-                trigger.apply( self, [ event ] );
+                event.overwrite = overwrite;
+                if ( setTrigger ) {
+                    setTrigger.apply( self, [ event ] );
+                }
+                if ( ! overwrite && addTrigger ) {
+                    addTrigger.apply( self, [ event ] );
+                }
             }
         },
 

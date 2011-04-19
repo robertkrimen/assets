@@ -163,7 +163,7 @@ if ( yzzy === null || yzzy === undefined ) {
             appendTo$.append( node.$ );
             node.dispatch.apply( node, $arguments );
             return node;
-        },
+        }
 
     } );
 
@@ -263,10 +263,16 @@ if ( yzzy === null || yzzy === undefined ) {
                     while ( rest.length ) {
                         var name = rest.shift();
                         var value = rest.shift();
-                        if ( ! $.isArray( value ) ) {
-                            value = [ value ];
+                        if ( name === "mixin" ) {
+                            // TODO Support arguments to the mixin procedure
+                            $DOMite.mixin[ value ].apply( self, [] );
                         }
-                        self.$[ name ].apply( self.$, value );
+                        else {
+                            if ( ! $.isArray( value ) ) {
+                                value = [ value ];
+                            }
+                            self.$[ name ].apply( self.$, value );
+                        }
                     }
                 }
             }
@@ -319,4 +325,35 @@ if ( yzzy === null || yzzy === undefined ) {
         }
 
     } );
+
+    $DOMite.mixin = {
+
+        'kv-stash': function(){
+            var self = this;
+            self.stash = new yzzy.stash.KeyValueStash();
+            self.stash.bind( 'set', function( event ){
+                var class_ = 'kv-stash-key-' + event.key; // TODO Make sure the class is "safe"
+                var value = event.value;
+                if ( 0 === self.$.find( '.' + class_ ).length ) {
+                    value.node = self.buildItem( event.key, event.value.data );
+                    value.node.attachTo( self );
+                    value.node.$.addClass( class_ );
+                    if ( event.previous ) {
+                        value.node.$.insertAfter( event.previous.node.$ );
+                    }
+                    else if ( event.next ) {
+                        value.node.$.insertBefore( event.next.node.$ );
+                    }
+                    else {
+                        self.$.append( value.node.$ );
+                    }
+                }
+            } );
+            self.set = function( key, data ){
+                var value = { data: data };
+                self.stash.set( key, value );
+            };
+        }
+    };
+
 }());
