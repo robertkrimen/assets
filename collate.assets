@@ -35,7 +35,7 @@ jquery-ui/jquery-ui.js
 jquery-ui/base/jquery-ui.css
 _END_
         attach => <<_END_,
-jquery-ui
+jquery-ui/base
 _END_
     );
 
@@ -48,7 +48,7 @@ jquery-ui/jquery-ui.js
 jquery-ui/ui-lightness/jquery-ui.css
 _END_
         attach => <<_END_,
-jquery-ui
+jquery-ui/ui-lightness
 _END_
     );
 
@@ -59,4 +59,12 @@ qunit/qunit.css
 _END_
     );
     
+    $collate->declare( '960' =>
+        include => <<_END_,
+960/reset.css
+960/text.css
+960/960.css
+_END_
+    );
+
 };
