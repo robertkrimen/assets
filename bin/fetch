@@ -27,8 +27,13 @@ function _pushmd {
 }
 
 function _fetch {
-    echo "> Fetch $*"
-    curl -OL $*
+    echo "> Fetch $1"
+    if [[ -n $2 ]]
+    then
+        curl -L $1 -o $2
+    else
+        curl -OL $1
+    fi
 }
 
 _pushmd "source"
@@ -45,21 +50,23 @@ popd
 
 
 _pushmd "css3buttons"
-    _fetch -L https://github.com/michenriksen/css3buttons/raw/master/stylesheets/css3buttons.css 
+    _fetch https://github.com/michenriksen/css3buttons/raw/master/stylesheets/css3buttons.css 
     perl -pi -e "s{url\('../images/css3buttons_backgrounds.png'\)}{url\(css3buttons-background.png\)}g" css3buttons.css
     perl -pi -e "s{url\('../images/css3buttons_icons.png'\)}{url\(css3buttons-icon.png\)}g" css3buttons.css
-    curl -L https://github.com/michenriksen/css3buttons/raw/master/images/css3buttons_backgrounds.png -o css3buttons-background.png
-    curl -L https://github.com/michenriksen/css3buttons/raw/master/images/css3buttons_icons.png -o css3buttons-icon.png
+    _fetch https://github.com/michenriksen/css3buttons/raw/master/images/css3buttons_backgrounds.png css3buttons-background.png
+    _fetch https://github.com/michenriksen/css3buttons/raw/master/images/css3buttons_icons.png css3buttons-icon.png
 popd
 
 for extension in {,.min}.js
 do
-    _fetch https://ajax.googleapis.com/ajax/libs/jquery/1/jquery$extension
-    _fetch https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
+    _fetch https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery$extension jquery16$extension
+    _fetch https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery$extension jquery15$extension
+    cp jquery15$extension jquery$extension
+    _fetch https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery$extension jquery14$extension
     _fetch https://github.com/jquery/jquery-tmpl/raw/master/jquery.tmpl$extension
 done
 
-_fetch -OL https://github.com/douglascrockford/JSON-js/raw/master/json2.js
+_fetch https://github.com/douglascrockford/JSON-js/raw/master/json2.js
 
 _pushmd "960"
     for file in {960,reset,text}.css
@@ -77,20 +84,24 @@ _pushmd "qunit"
 popd
 
 _pushmd "jquery-ui"
+
+    for extension in {,.min}.js
+    do
+        _fetch https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui$extension
+    done
+
     for theme in base ui-lightness
     do
         _pushmd $theme
-        _fetch http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
 
-        _pushmd "jquery-ui"
-        for url in `<../jquery-ui.css perl -ne 'm/url\(([^)]+)\)/ and print "$1\n"'`
-        do
-            _fetch http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
-        done
-        popd
+            _fetch http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/jquery-ui.css 
+            for url in `<./jquery-ui.css perl -ne 'm/url\((images\/[^)]+)\)/ and print "$1\n"'`
+            do
+                _fetch http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/$theme/$url
+            done
+            perl -pi -e 's/url\(images\//url\(/g' jquery-ui.css
 
-        perl -pi -e 's/url\(images/url\(jquery-ui/g' jquery-ui.css
         popd
     done
-popd
 
+popd

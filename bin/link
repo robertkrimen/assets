@@ -56,11 +56,13 @@ my $asset;
 declare "json2.js" => { uncompressed => "source/json2.js" };
 
 declare "jquery.js" => "source/jquery{.min}.js";
+declare "jquery14.js" => "source/jquery14{.min}.js";
+declare "jquery15.js" => "source/jquery15{.min}.js";
+declare "jquery16.js" => "source/jquery16{.min}.js";
 declare "jquery.tmpl.js" => "source/jquery.tmpl{.min}.js";
-declare "jquery-ui.js" => "source/jquery-ui{.min}.js";
 
-declare "jquery-ui.css" => { uncompressed => "source/jquery-ui/base/jquery-ui.css" };
-declare "jquery-ui" => { data => "source/jquery-ui/base/jquery-ui/" };
+declare "jquery-ui/jquery-ui.js" => "source/jquery-ui/jquery-ui{.min}.js";
+declare "jquery-ui/jquery-ui/base" => { data => "source/jquery-ui/base" };
 
 for (qw/ 960.css reset.css text.css /) {
     declare "960/$_" => {
