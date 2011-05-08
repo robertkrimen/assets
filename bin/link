@@ -62,7 +62,8 @@ declare "jquery16.js" => "source/jquery16{.min}.js";
 declare "jquery.tmpl.js" => "source/jquery.tmpl{.min}.js";
 
 declare "jquery-ui/jquery-ui.js" => "source/jquery-ui/jquery-ui{.min}.js";
-declare "jquery-ui/jquery-ui/base" => { data => "source/jquery-ui/base" };
+declare "jquery-ui/base" => { data => "source/jquery-ui/base" };
+declare "jquery-ui/ui-lightness" => { data => "source/jquery-ui/base" };
 
 for (qw/ 960.css reset.css text.css /) {
     declare "960/$_" => {
