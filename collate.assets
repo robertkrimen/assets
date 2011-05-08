@@ -1,0 +1,62 @@
+#!/usr/bin/env perl
+
+use Modern::Perl;
+
+sub {
+    my ( $collate ) = @_;
+
+    $collate->rebase( 'uncompressed' );
+
+    $collate->declare( 'underscore' =>
+        include => <<_END_,
+underscore.js
+_END_
+    );
+    
+    $collate->declare( 'prettify' => 
+        include => <<_END_,
+prettify/prettify.js
+prettify/prettify.css
+_END_
+    );
+
+    $collate->declare( 'jquery' =>
+        include => <<_END_,
+jquery.js
+_END_
+    );
+    
+    $collate->declare( 'jquery-ui' =>
+        import => <<_END_,
+jquery
+_END_
+        include => <<_END_,
+jquery-ui/jquery-ui.js
+jquery-ui/base/jquery-ui.css
+_END_
+        attach => <<_END_,
+jquery-ui
+_END_
+    );
+
+    $collate->declare( 'jquery-ui-lightness' =>
+        import => <<_END_,
+jquery
+_END_
+        include => <<_END_,
+jquery-ui/jquery-ui.js
+jquery-ui/ui-lightness/jquery-ui.css
+_END_
+        attach => <<_END_,
+jquery-ui
+_END_
+    );
+
+    $collate->declare( 'qunit' =>
+        include => <<_END_,
+qunit/qunit.js
+qunit/qunit.css
+_END_
+    );
+    
+};
