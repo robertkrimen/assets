@@ -42,10 +42,8 @@ _fetch "https://github.com/documentcloud/underscore/raw/1.1.5/underscore.js"
 _fetch "https://github.com/documentcloud/underscore/raw/1.1.5/underscore-min.js"
 
 _pushmd "tipsy"
-    _fetch "https://github.com/jaz303/tipsy/raw/master/src/images/tipsy.gif"
     _fetch "https://github.com/jaz303/tipsy/raw/master/src/javascripts/jquery.tipsy.js"
     _fetch "https://github.com/jaz303/tipsy/raw/master/src/stylesheets/tipsy.css"
-    perl -pi -e "s{url\('../images/}{url\('}g" tipsy.css
 popd
 
 

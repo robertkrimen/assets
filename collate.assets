@@ -94,8 +94,5 @@ _END_
 tipsy/jquery.tipsy.js
 tipsy/tipsy.css
 _END_
-        attach => <<_END_,
-tipsy/tipsy.gif
-_END_
     );
 };
