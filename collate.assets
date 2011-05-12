@@ -67,4 +67,35 @@ _END_
 _END_
     );
 
+    $collate->declare( 'css3buttons' =>
+        include => <<_END_,
+css3buttons/css3buttons.css
+_END_
+        attach => <<_END_,
+css3buttons
+_END_
+
+    );
+
+    $collate->declare( 'zeroclipboard' =>
+        include => <<_END_,
+zeroclipboard/ZeroClipboard.js
+_END_
+        attach => <<_END_,
+zeroclipboard/ZeroClipboard.swf
+_END_
+    );
+
+    $collate->declare( 'tipsy' =>
+        import => <<_END_,
+jquery
+_END_
+        include => <<_END_,
+tipsy/jquery.tipsy.js
+tipsy/tipsy.css
+_END_
+        attach => <<_END_,
+tipsy/tipsy.gif
+_END_
+    );
 };
