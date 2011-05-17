@@ -38,6 +38,23 @@ function _fetch {
 
 _pushmd "source"
 
+_pushmd "jquery-ui19"
+
+    version=jquery-ui-1.9m4
+    zip=`mktemp -t $version.zip`
+    curl -L http://jquery-ui.googlecode.com/files/jquery-ui-1.9m4.zip -o $zip
+
+    unzip -qc $zip $version/ui/jquery-ui.js > jquery-ui.js
+    unzip -qc $zip $version/themes/base/jquery-ui.css > jquery-ui.css
+
+    for url in `<./jquery-ui.css perl -ne 'm/url\((images\/[^)]+)\)/ and print "$1\n"'`
+    do
+        unzip -qc $zip $version/themes/base/$url > `basename $url`
+    done
+    perl -pi -e 's/url\(images\//url\(/g' jquery-ui.css
+
+popd
+
 _fetch "https://github.com/documentcloud/underscore/raw/1.1.5/underscore.js"
 _fetch "https://github.com/documentcloud/underscore/raw/1.1.5/underscore-min.js"
 
@@ -103,3 +120,4 @@ _pushmd "jquery-ui"
     done
 
 popd
+

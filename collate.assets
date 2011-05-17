@@ -95,4 +95,18 @@ tipsy/jquery.tipsy.js
 tipsy/tipsy.css
 _END_
     );
+
+    $collate->declare( 'jquery-ui19' =>
+        import => <<_END_,
+jquery
+_END_
+        include => <<_END_,
+jquery-ui19/jquery-ui.js
+jquery-ui19/jquery-ui.css
+_END_
+        attach => <<_END_,
+jquery-ui19
+_END_
+    );
+
 };

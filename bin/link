@@ -65,6 +65,8 @@ declare "jquery-ui/jquery-ui.js" => "source/jquery-ui/jquery-ui{.min}.js";
 declare "jquery-ui/base" => { data => "source/jquery-ui/base" };
 declare "jquery-ui/ui-lightness" => { data => "source/jquery-ui/base" };
 
+declare "jquery-ui19";
+
 for (qw/ 960.css reset.css text.css /) {
     declare "960/$_" => {
         compressed => "source/960/$_",
