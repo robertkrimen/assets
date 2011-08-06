@@ -109,4 +109,12 @@ jquery-ui19
 _END_
     );
 
+    $collate->declare( 'skeleton' =>
+        include => <<_END_,
+skeleton/base.css
+skeleton/skeleton.css
+_END_
+    );
+
+
 };
