@@ -38,6 +38,11 @@ function _fetch {
 
 _pushmd "source"
 
+_pushmd "skeleton"
+    _fetch "https://raw.github.com/dhgamache/Skeleton/master/stylesheets/base.css"
+    _fetch "https://raw.github.com/dhgamache/Skeleton/master/stylesheets/skeleton.css"
+popd
+
 if false
 then
     _pushmd "jquery-ui19"

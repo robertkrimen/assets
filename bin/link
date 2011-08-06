@@ -67,6 +67,8 @@ declare "jquery-ui/ui-lightness" => { data => "source/jquery-ui/base" };
 
 declare "jquery-ui19";
 
+declare "skeleton";
+
 for (qw/ 960.css reset.css text.css /) {
     declare "960/$_" => {
         compressed => "source/960/$_",
