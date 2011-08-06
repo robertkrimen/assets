@@ -69,6 +69,8 @@ declare "jquery-ui19";
 
 declare "skeleton";
 
+declare "html5-boilerplate";
+
 for (qw/ 960.css reset.css text.css /) {
     declare "960/$_" => {
         compressed => "source/960/$_",

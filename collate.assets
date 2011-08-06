@@ -116,5 +116,10 @@ skeleton/skeleton.css
 _END_
     );
 
+    $collate->declare( 'html5-boilerplate' =>
+        include => <<_END_,
+html5-boilerplate/style.css
+_END_
+    );
 
 };

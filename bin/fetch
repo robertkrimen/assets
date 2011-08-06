@@ -43,6 +43,10 @@ _pushmd "skeleton"
     _fetch "https://raw.github.com/dhgamache/Skeleton/master/stylesheets/skeleton.css"
 popd
 
+_pushmd "html5-boilerplate"
+    _fetch "https://raw.github.com/paulirish/html5-boilerplate/master/css/style.css"
+popd
+
 if false
 then
     _pushmd "jquery-ui19"
