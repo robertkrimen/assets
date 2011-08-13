@@ -122,4 +122,10 @@ html5-boilerplate/style.css
 _END_
     );
 
+    $collate->declare( 'html5-9743' =>
+        include => <<_END_,
+html5-9743.css
+_END_
+    );
+
 };

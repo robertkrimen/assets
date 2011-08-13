@@ -67,6 +67,8 @@ declare "jquery-ui/ui-lightness" => { data => "source/jquery-ui/base" };
 
 declare "jquery-ui19";
 
+declare "html5-9743.css" => { uncompressed => "source/html5-9743.css" };
+
 declare "skeleton";
 
 declare "html5-boilerplate";
